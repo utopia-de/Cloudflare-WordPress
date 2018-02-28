@@ -49,7 +49,9 @@ class HTTP2ServerPush
                 // +2 comes from the last CRLF since it's two bytes
                 $headerSize = strlen($headerAsString) + strlen($newHeader) + 2;
                 if ($headerSize > 3072) {
-                    error_log('Cannot Server Push (header size over 3072 Bytes).');
+                    if (\defined('WP_DEBUG') && WP_DEBUG === true){
+                        error_log('Cannot Server Push (header size over 3072 Bytes).');
+                    }
                     return $src;
                 }
 
